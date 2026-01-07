@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@reference "tailwindcss/preflight";
+@reference "tailwindcss/utilities";
+
+/* Your custom theme */
+@theme {
+  --color-primary: #0D4333;
+  --color-primary-hover: #0A3829;
+  --color-bg-soft: #F6F9F8;
+  --color-border-light: #E2E8E6;
+  --color-text-primary: #1F2933;
+  --color-text-muted: #6B7280;
+  --color-accent: #C8A45D;
+}
+
+/* Custom reusable classes */
+.btn-primary {
+  @apply bg-primary text-white font-semibold px-8 py-4 rounded-xl hover:bg-primary-hover transition shadow-[0_4px_20px_rgba(0,0,0,0.06)];
+}

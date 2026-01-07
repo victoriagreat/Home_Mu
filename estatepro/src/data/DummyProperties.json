@@ -1,0 +1,95 @@
+[
+  {
+    "id": 1,
+    "title": "Luxury 4-Bedroom Duplex in Ikoyi",
+    "price": "₦850,000,000",
+    "location": "Ikoyi, Lagos",
+    "type": "For Sale",
+    "beds": 4,
+    "baths": 5,
+    "sqft": 650,
+    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+  },
+  {
+    "id": 2,
+    "title": "Modern 3-Bedroom Apartment in Lekki",
+    "price": "₦320,000/year",
+    "location": "Lekki Phase 1, Lagos",
+    "type": "For Rent",
+    "beds": 3,
+    "baths": 3,
+    "sqft": 250,
+    "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80"
+  },
+  {
+    "id": 3,
+    "title": "Prime Office Space in Victoria Island",
+    "price": "₦45,000,000/year",
+    "location": "Victoria Island, Lagos",
+    "type": "For Lease",
+    "beds": null,
+    "baths": null,
+    "sqft": 1200,
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80"
+  },
+  {
+    "id": 4,
+    "title": "Cozy Shortlet Villa in Banana Island",
+    "price": "₦450,000/night",
+    "location": "Banana Island, Lagos",
+    "type": "Shortlet",
+    "beds": 5,
+    "baths": 6,
+    "sqft": 800,
+    "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80"
+  },
+  {
+    "id": 5,
+    "title": "Elegant 5-Bedroom Mansion in Maitama",
+    "price": "₦1,200,000,000",
+    "location": "Maitama, Abuja",
+    "type": "For Sale",
+    "beds": 5,
+    "baths": 6,
+    "sqft": 900,
+    "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80"
+  },
+  {
+    "id": 6,
+    "title": "Serviced 2-Bedroom Shortlet in Asokoro",
+    "price": "₦250,000/night",
+    "location": "Asokoro, Abuja",
+    "type": "Shortlet",
+    "beds": 2,
+    "baths": 2,
+    "sqft": 180,
+    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80"
+  },
+  {
+  "id": 7,
+  "title": "600sqm Residential Plot in Epe Gardens",
+  "price": "₦25,000,000",
+  "location": "Epe, Lagos",
+  "type": "Land",
+  "sqft": 600,
+  "image": "https://images.nigeriapropertycentre.com/properties/images/2953812/068654ce5d5ad2-400-sqm-residential-land-in-an-estate-residential-land-for-sale-epe-lagos.jpeg"
+},
+{
+  "id": 8,
+  "title": "1 Acre Commercial Land in Ikeja GRA",
+  "price": "₦350,000,000",
+  "location": "Ikeja, Lagos",
+  "type": "Land",
+  "sqft": 4047,
+  "image": "https://images.nigeriapropertycentre.com/properties/images/3269527/06951ae5d18101-hot-commercial-land-opportunity-in-katampe-district-grab-this-commercial-land-for-sale-katampe-district-abuja.jpg"
+},
+{
+  "id": 9,
+  "title": "Prime 500sqm Plot in Maitama Extension",
+  "price": "₦180,000,000",
+  "location": "Maitama, Abuja",
+  "type": "Land",
+  "sqft": 500,
+  "image": "https://images.nigeriapropertycentre.com/properties/images/2505959/06707b30c6080e-verified-estate-land-with-perimeter-fencing-mixed-use-land-for-sale-epe-lagos.jpg"
+}
+]
