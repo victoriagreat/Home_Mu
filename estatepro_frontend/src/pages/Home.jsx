@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import {
   Building,
   Store,
@@ -12,6 +13,8 @@ import {
   Clock,
   Star,
   BookOpen,
+  Menu,
+  X,
 } from 'lucide-react';
 
 import SearchBar from '../components/common/SearchBar';
@@ -30,7 +33,6 @@ function Home() {
     { name: 'Event Halls Booking', path: '/event-halls', icon: Calendar },
   ];
 
-  // Quick benefits icons + write-ups
   const quickBenefits = [
     { icon: Shield, title: 'Verified Properties', text: 'All listings are inspected & verified' },
     { icon: CreditCard, title: 'Pay Small Small', text: 'Flexible installment plans available' },
@@ -38,10 +40,12 @@ function Home() {
     { icon: Star, title: 'Premium Service', text: 'Best agents & customer experience' },
   ];
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <>
       {/* ================= HERO ================= */}
-      <section className="relative h-96 md:h-screen flex flex-col justify-end pb-24 overflow-hidden">
+      <section className="relative h-96 md:h-screen flex flex-col justify-end pb-16 md:pb-24 overflow-hidden">
         {/* Background */}
         <div
           className="absolute inset-0 bg-cover bg-center blur-sm scale-105"
@@ -51,7 +55,7 @@ function Home() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
           {/* Hero Text */}
-          <div className="text-center text-white mb-12">
+          <div className="text-center text-white mb-8 md:mb-12">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight">
               Leisure at its<br />Peak
             </h1>
@@ -60,8 +64,8 @@ function Home() {
             </p>
           </div>
 
-          {/* Floating Nav + Search */}
-          <div className="relative flex flex-col items-center">
+          {/* Service Nav + Search - HIDDEN on mobile */}
+          <div className="hidden md:flex relative flex-col items-center">
             {/* Service Nav */}
             <div className="relative z-30 -mb-6">
               <div className="bg-white rounded-full shadow-card inline-flex flex-wrap justify-center p-1 gap-1">
@@ -86,8 +90,51 @@ function Home() {
               <SearchBar />
             </div>
           </div>
+
+          {/* Hamburger Menu Button - MOBILE ONLY */}
+          <div className="md:hidden fixed top-4 right-4 z-50">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="bg-primary/90 backdrop-blur-sm p-3 rounded-full text-white shadow-lg"
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
       </section>
+
+      {/* ================= MOBILE HAMBURGER MENU ================= */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40 flex items-center justify-center">
+          <div className="bg-white rounded-2xl p-8 w-[90%] max-w-md animate-fade-in">
+            <div className="flex flex-col space-y-6 text-center">
+              {services.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <Link
+                    key={service.name}
+                    to={service.path}
+                    className="flex items-center justify-center gap-3 py-4 text-xl font-medium text-text-primary hover:text-primary transition"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <Icon size={24} />
+                    {service.name}
+                  </Link>
+                );
+              })}
+
+              {/* Become An Agent in mobile menu */}
+              <Link
+                to="/become-agent"
+                className="btn-primary py-5 text-xl font-bold"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Become An Agent
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ================= FEATURED PROPERTIES ================= */}
       <section className="py-20 bg-bg-soft">
@@ -146,7 +193,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ================= QUICK BENEFITS ICONS + WRITE-UPS (ON TOP OF EXPLORE BY CATEGORY) ================= */}
+      {/* ================= QUICK BENEFITS ================= */}
       <section className="py-20 bg-bg-soft">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -164,8 +211,6 @@ function Home() {
         </div>
       </section>
 
-      
-
       {/* ================= HOLIDAY ESCAPE ================= */}
       <section className="py-20 bg-linear-to-r from-primary to-primary-dark text-white">
         <div className="max-w-7xl mx-auto px-4">
@@ -174,35 +219,35 @@ function Home() {
               <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
                 Get Apartment/Shops for Rent and Lease
               </h2>
-              <p className="text-xl mb-8 opacity-90">At HomeMu, Your Comfort and Security comes first. We deliver seamless real estate solutions built on Trust, Quality and Legal Assurance.            </p>
+              <p className="text-xl mb-8 opacity-90">At HomeMu, Your Comfort and Security comes first. We deliver seamless real estate solutions built on Trust, Quality and Legal Assurance.</p>
               <div className="space-y-6">
-              <div className="flex gap-4">
-                <BookOpen size={32} className="text-white shrink-0" />
-                <div>
-                  <h3 className="text-xl font-bold text-white">
-                    We provide well-maintained, comfortable, and conducive living spaces for leisure, rent, and long-term stays.
-                  </h3>
+                <div className="flex gap-4">
+                  <BookOpen size={32} className="text-white shrink-0" />
+                  <div>
+                    <h3 className="text-xl font-bold text-white">
+                      We provide well-maintained, comfortable, and conducive living spaces for leisure, rent, and long-term stays.
+                    </h3>
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex gap-4">
-                <BookOpen size={32} className="text-white shrink-0" />
-                <div>
-                  <h3 className="text-xl font-bold text-white">
-                    Whether you’re leasing or renting, we offer top-tier property options tailored to your lifestyle and budget.
-                  </h3>
+                <div className="flex gap-4">
+                  <BookOpen size={32} className="text-white shrink-0" />
+                  <div>
+                    <h3 className="text-xl font-bold text-white">
+                      Whether you’re leasing or renting, we offer top-tier property options tailored to your lifestyle and budget.
+                    </h3>
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex gap-4">
-                <BookOpen size={32} className="text-white shrink-0" />
-                <div>
-                  <h3 className="text-xl font-bold text-white">
-                    Experience convenience, comfort, and legal security—all in one place. Choose HomeMu today.
-                  </h3>
+                <div className="flex gap-4">
+                  <BookOpen size={32} className="text-white shrink-0" />
+                  <div>
+                    <h3 className="text-xl font-bold text-white">
+                      Experience convenience, comfort, and legal security—all in one place. Choose HomeMu today.
+                    </h3>
+                  </div>
                 </div>
               </div>
-            </div>
 
               <Link to="/shortlets" className="inline-block mt-10 bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition">
                 Explore HomeMu Services
@@ -302,9 +347,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      
-      
     </>
   );
 }
