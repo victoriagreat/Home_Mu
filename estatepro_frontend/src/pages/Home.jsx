@@ -45,11 +45,12 @@ function Home() {
   return (
     <>
       {/* ================= HERO ================= */}
-      <section className="relative h-96 md:h-screen flex flex-col justify-end pb-16 md:pb-24 overflow-hidden">
-        
+      <section className="relative bg-primary min-h-[50vh] md:min-h-screen flex flex-col justify-center md:justify-end pb-12 md:pb-24 overflow-hidden">
+        {/* Solid background (no image) */}
+        <div className="absolute inset-0 bg-primary" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
-          {/* Hero Text */}
+          {/* Hero Text - Centered vertically on mobile */}
           <div className="text-center text-white mb-8 md:mb-12">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight">
               Leisure at its<br />Peak
