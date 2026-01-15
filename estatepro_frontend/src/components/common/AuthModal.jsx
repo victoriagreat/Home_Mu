@@ -26,10 +26,10 @@ function AuthModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
+     
       <div className="absolute inset-0 bg-black bg-opacity-70" onClick={onClose} />
       
-      {/* Modal */}
+     
       <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8">
         <button 
           onClick={onClose}
