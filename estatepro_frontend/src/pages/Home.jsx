@@ -46,12 +46,7 @@ function Home() {
     <>
       {/* ================= HERO ================= */}
       <section className="relative h-96 md:h-screen flex flex-col justify-end pb-16 md:pb-24 overflow-hidden">
-        {/* Background */}
-        <div
-          className="absolute inset-0 bg-cover bg-center blur-sm scale-105"
-          style={{ backgroundImage: 'url(/hero-bg.jpg)' }}
-        />
-        <div className="absolute inset-0 bg-primary bg-opacity-60" />
+        
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
           {/* Hero Text */}
