@@ -60,6 +60,25 @@ function Home() {
             </p>
           </div>
 
+          {/* MOBILE SERVICE BUTTONS - Responsive 2-column grid */}
+          <div className="md:hidden grid grid-cols-2 gap-4 mb-8">
+            {services.map((service) => {
+              const Icon = service.icon;
+              return (
+                <Link
+                  key={service.name}
+                  to={service.path}
+                  className="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center justify-center text-center hover:bg-gray-50 active:bg-gray-100 transition-all duration-200 touch-manipulation"
+                >
+                  <Icon size={28} className="text-primary mb-2" />
+                  <span className="text-sm font-medium text-text-primary leading-tight text-center">
+                    {service.name}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+
           {/* Service Nav + Search - HIDDEN on mobile */}
           <div className="hidden md:flex relative flex-col items-center">
             {/* Service Nav */}
@@ -294,10 +313,10 @@ function Home() {
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-6">
-              <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80" alt="Guide" className="rounded-xl shadow-2xl" />
-              <img src="https://images.unsplash.com/photo-1507009615497-c01f3c98c8f5?w=800&q=80" alt="Location guide" className="rounded-xl shadow-2xl mt-12" />
-              <img src="https://images.unsplash.com/photo-1504384308090-0b8c86e84a5f?w=800&q=80" alt="Investment" className="rounded-xl shadow-2xl -mt-12" />
-              <img src="https://images.unsplash.com/photo-1560472355-4a8f4ebf6b4f?w=800&q=80" alt="Tips" className="rounded-xl shadow-2xl" />
+              <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/623072751.jpg" alt="Holiday villa" className="rounded-xl shadow-2xl" />
+              <img src="https://images.unsplash.com/photo-1578683015141-0b11f7e5f374?w=800&q=80" alt="Beach getaway" className="rounded-xl shadow-2xl mt-12" />
+              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Luxury shortlet" className="rounded-xl shadow-2xl -mt-12" />
+              <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80" alt="Pool villa" className="rounded-xl shadow-2xl" />
             </div>
           </div>
         </div>
