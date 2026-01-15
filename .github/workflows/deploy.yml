@@ -23,12 +23,19 @@ jobs:
         with:
           node-version: 18
 
-      - run: npm install
-      - run: npm run build
+      - name: Install dependencies
+        run: |
+          cd estatepro_frontend
+          npm ci
+
+      - name: Build project
+        run: |
+          cd estatepro_frontend
+          npm run build
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: estatepro_frontend/dist
 
   deploy:
     needs: build
