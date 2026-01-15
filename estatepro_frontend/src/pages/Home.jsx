@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {
-  Building,
+  House,
   Store,
-  BedDouble,
+  Bed,
   Hotel,
   Map,
   Calendar,
@@ -25,9 +25,9 @@ function Home() {
   const featured = properties.slice(0, 6);
 
   const services = [
-    { name: 'Rent Apartment', path: '/rent', icon: Building },
+    { name: 'Rent Apartment', path: '/rent', icon: House },
     { name: 'Shops for Lease', path: '/lease', icon: Store },
-    { name: 'Shortlets / Airbnb', path: '/shortlets', icon: BedDouble },
+    { name: 'Shortlets / Airbnb', path: '/shortlets', icon: Bed },
     { name: 'Hotel Bookings', path: '/hotels', icon: Hotel },
     { name: 'Buy Land', path: '/land', icon: Map },
     { name: 'Event Halls Booking', path: '/event-halls', icon: Calendar },
@@ -50,18 +50,18 @@ function Home() {
         <div className="absolute inset-0 bg-primary" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
-          {/* Hero Text - Centered vertically on mobile */}
+          {/* Hero Text */}
           <div className="text-center text-white mb-8 md:mb-12">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight">
               Leisure at its<br />Peak
             </h1>
             <p className="text-xl md:text-2xl opacity-90">
-              We offer Premium homes, apartments, lands & hospitality bookings
+              We help you rent houses/ shops , buy land, and book hotels or short-stay apartments without stress.
             </p>
           </div>
 
-          {/* MOBILE SERVICE BUTTONS - Responsive 2-column grid */}
-          <div className="md:hidden grid grid-cols-2 gap-4 mb-8">
+          {/* MOBILE ONLY: 2-column service buttons */}
+          <div className="md:hidden grid grid-cols-2 gap-4 mb-6">
             {services.map((service) => {
               const Icon = service.icon;
               return (
@@ -70,7 +70,7 @@ function Home() {
                   to={service.path}
                   className="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center justify-center text-center hover:bg-gray-50 active:bg-gray-100 transition-all duration-200 touch-manipulation"
                 >
-                  <Icon size={28} className="text-primary mb-2" />
+                  <Icon size={40} className="text-primary mb-2" />
                   <span className="text-sm font-medium text-text-primary leading-tight text-center">
                     {service.name}
                   </span>
@@ -79,31 +79,28 @@ function Home() {
             })}
           </div>
 
-          {/* Service Nav + Search - HIDDEN on mobile */}
-          <div className="hidden md:flex relative flex-col items-center">
-            {/* Service Nav */}
-            <div className="relative z-30 -mb-6">
-              <div className="bg-white rounded-full shadow-card inline-flex flex-wrap justify-center p-1 gap-1">
-                {services.map((service) => {
-                  const Icon = service.icon;
-                  return (
-                    <Link
-                      key={service.name}
-                      to={service.path}
-                      className="flex items-center gap-2 px-5 md:px-7 py-3 rounded-full font-semibold text-text-primary hover:bg-bg-soft transition whitespace-nowrap"
-                    >
-                      <Icon size={18} className="text-primary" />
-                      <span className="text-sm md:text-base">{service.name}</span>
-                    </Link>
-                  );
-                })}
-              </div>
+          {/* DESKTOP ONLY: Horizontal pill nav (six cards) */}
+          <div className="hidden md:block relative z-30 -mb-6">
+            <div className="bg-white rounded-full shadow-card inline-flex flex-wrap justify-center p-1 gap-1 mx-auto">
+              {services.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <Link
+                    key={service.name}
+                    to={service.path}
+                    className="flex items-center gap-2 px-5 md:px-7 py-3 rounded-full font-semibold text-text-primary hover:bg-bg-soft transition whitespace-nowrap"
+                  >
+                    <Icon size={18} className="text-primary" />
+                    <span className="text-sm md:text-base">{service.name}</span>
+                  </Link>
+                );
+              })}
             </div>
+          </div>
 
-            {/* Search Bar */}
-            <div className="relative z-20 w-full max-w-5xl -mt-2">
-              <SearchBar />
-            </div>
+          {/* Search Bar - Always visible, positioned correctly */}
+          <div className="w-full max-w-5xl mx-auto mb-8 md:mt-0 px-2 md:px-0">
+            <SearchBar />
           </div>
 
           {/* Hamburger Menu Button - MOBILE ONLY */}
@@ -226,57 +223,81 @@ function Home() {
         </div>
       </section>
 
-      {/* ================= HOLIDAY ESCAPE ================= */}
-      <section className="py-20 bg-linear-to-r from-primary to-primary-dark text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* ================= GET APARTMENT/SHOPS FOR RENT AND LEASE ================= */}
+<section className="py-20 bg-primary text-white">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Left: Text content */}
+      <div className="text-center lg:text-left">
+        <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
+          Get Apartment/Shops for Rent and Lease
+        </h2>
+        <p className="text-xl mb-8 opacity-90">
+          At HomeMu, Your Comfort and Security comes first. We deliver seamless real estate solutions built on Trust, Quality and Legal Assurance.
+        </p>
+        <div className="space-y-6">
+          <div className="flex gap-4 items-start justify-center lg:justify-start">
+            <BookOpen size={32} className="text-white shrink-0 mt-1" />
             <div>
-              <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
-                Get Apartment/Shops for Rent and Lease
-              </h2>
-              <p className="text-xl mb-8 opacity-90">At HomeMu, Your Comfort and Security comes first. We deliver seamless real estate solutions built on Trust, Quality and Legal Assurance.</p>
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <BookOpen size={32} className="text-white shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-bold text-white">
-                      We provide well-maintained, comfortable, and conducive living spaces for leisure, rent, and long-term stays.
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <BookOpen size={32} className="text-white shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-bold text-white">
-                      Whether you’re leasing or renting, we offer top-tier property options tailored to your lifestyle and budget.
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <BookOpen size={32} className="text-white shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-bold text-white">
-                      Experience convenience, comfort, and legal security—all in one place. Choose HomeMu today.
-                    </h3>
-                  </div>
-                </div>
-              </div>
-
-              <Link to="/shortlets" className="inline-block mt-10 bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition">
-                Explore HomeMu Services
-              </Link>
+              <h3 className="text-xl font-bold text-white text-left">
+                We provide well-maintained, comfortable, and conducive living spaces for leisure, rent, and long-term stays.
+              </h3>
             </div>
-            <div className="grid grid-cols-2 gap-6">
-              <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/623072751.jpg" alt="Holiday villa" className="rounded-xl shadow-2xl" />
-              <img src="https://images.unsplash.com/photo-1578683015141-0b11f7e5f374?w=800&q=80" alt="Beach getaway" className="rounded-xl shadow-2xl mt-12" />
-              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Luxury shortlet" className="rounded-xl shadow-2xl -mt-12" />
-              <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80" alt="Pool villa" className="rounded-xl shadow-2xl" />
+          </div>
+
+          <div className="flex gap-4 items-start justify-center lg:justify-start">
+            <BookOpen size={32} className="text-white shrink-0 mt-1" />
+            <div>
+              <h3 className="text-xl font-bold text-white text-left">
+                Whether you’re leasing or renting, we offer top-tier property options tailored to your lifestyle and budget.
+              </h3>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start justify-center lg:justify-start">
+            <BookOpen size={32} className="text-white shrink-0 mt-1" />
+            <div>
+              <h3 className="text-xl font-bold text-white text-left">
+                Experience convenience, comfort, and legal security—all in one place. Choose HomeMu today.
+              </h3>
             </div>
           </div>
         </div>
-      </section>
+
+        <Link
+          to="/shortlets"
+          className="inline-block mt-10 bg-white text-primary font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition"
+        >
+          Explore HomeMu Services
+        </Link>
+      </div>
+
+      {/* Right: Images grid (desktop side-by-side, mobile stacked below text) */}
+      <div className="grid grid-cols-2 gap-6">
+        <img
+          src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800"
+          alt="Modern holiday villa"
+          className="rounded-xl shadow-2xl object-cover w-full h-64 lg:h-80"
+        />
+        <img
+          src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800"
+          alt="Beach getaway villa"
+          className="rounded-xl shadow-2xl object-cover w-full h-64 lg:h-80 mt-12 lg:mt-0"
+        />
+        <img
+          src="https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800"
+          alt="Luxury shortlet interior"
+          className="rounded-xl shadow-2xl object-cover w-full h-64 lg:h-80 -mt-12 lg:-mt-0"
+        />
+        <img
+          src="https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800"
+          alt="Luxury shortlet interior"
+          className="rounded-xl shadow-2xl object-cover w-full h-64 lg:h-80 -mt-12 lg:-mt-0"
+        />
+      </div>
+    </div>
+  </div>
+</section>
 
       <section className="py-20 bg-bg-soft">
         <div className="max-w-7xl mx-auto px-4">
@@ -313,25 +334,25 @@ function Home() {
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-6">
-              <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/623072751.jpg" alt="Holiday villa" className="rounded-xl shadow-2xl" />
-              <img src="https://images.unsplash.com/photo-1578683015141-0b11f7e5f374?w=800&q=80" alt="Beach getaway" className="rounded-xl shadow-2xl mt-12" />
-              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Luxury shortlet" className="rounded-xl shadow-2xl -mt-12" />
-              <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80" alt="Pool villa" className="rounded-xl shadow-2xl" />
+              <img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Guide" className="rounded-xl shadow-2xl" />
+              <img src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Location guide" className="rounded-xl shadow-2xl mt-12" />
+              <img src="https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Investment" className="rounded-xl shadow-2xl -mt-12" />
+              <img src="https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tips" className="rounded-xl shadow-2xl" />
             </div>
           </div>
         </div>
       </section>
 
       {/* ================= PAY SMALL SMALL ================= */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-200">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="grid grid-cols-2 gap-6">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="Payment plan" className="rounded-xl shadow-2xl" />
-                <img src="https://images.unsplash.com/photo-1554224177-974c8b8e4d9c?w=800&q=80" alt="Flexible payment" className="rounded-xl shadow-2xl mt-12" />
-                <img src="https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?w=800&q=80" alt="Installment" className="rounded-xl shadow-2xl -mt-12" />
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="Easy payment" className="rounded-xl shadow-2xl" />
+                      <img src="https://images.pexels.com/photos/50987/money-card-business-credit-card-50987.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Payment plan" className="rounded-xl shadow-2xl" />
+                      <img src="https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Flexible payment" className="rounded-xl shadow-2xl mt-12" />
+                      <img src="https://images.pexels.com/photos/50987/money-card-business-credit-card-50987.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Easy payment" className="rounded-xl shadow-2xl" />
+                      <img src="https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Flexible payment" className="rounded-xl shadow-2xl mt-12" />
               </div>
             </div>
             <div className="order-1 lg:order-2">
