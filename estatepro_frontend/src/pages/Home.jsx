@@ -287,12 +287,12 @@ function Home() {
         <img
           src="https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800"
           alt="Luxury shortlet interior"
-          className="rounded-xl shadow-2xl object-cover w-full h-64 lg:h-80 -mt-12 lg:-mt-0"
+          className="rounded-xl shadow-2xl object-cover w-full h-64 lg:h-80 -mt-12 lg:mt-0"
         />
         <img
           src="https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800"
           alt="Luxury shortlet interior"
-          className="rounded-xl shadow-2xl object-cover w-full h-64 lg:h-80 -mt-12 lg:-mt-0"
+          className="rounded-xl shadow-2xl object-cover w-full h-64 lg:h-80 -mt-12 lg:mt-0"
         />
       </div>
     </div>
