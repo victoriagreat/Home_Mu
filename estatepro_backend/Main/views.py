@@ -1,17 +1,20 @@
 from django.contrib.auth import login, logout
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status, viewsets, permissions
 from django.shortcuts import render
 from django.contrib.auth.backends import BaseBackend
-from .serializers import (LoginSerializer, RegisterSerializer )
+from .serializers import (LoginSerializer, RegisterSerializer, CreateAgentApplySerializer, ContactSerializer)
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from .models import AppUser
+from .models import AppUser, AgentApplication, ContactRequest
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 class UserBackend(BaseBackend):
@@ -127,3 +130,31 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 }
             )
         return Response({'error': 'Invalid credentials'})
+class ContactUsView(CreateAPIView):
+    queryset = ContactRequest.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ContactSerializer
+
+    def post(self, request):
+        serializer = ContactSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'message sent',
+                            }, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors)
+
+
+class AgentApplyView(CreateAPIView):
+    queryset = AgentApplication.objects.all()
+    serializer_class = CreateAgentApplySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    parser_classes = [MultiPartParser, FormParser]
+    
+
+    def perform_create(self, serializer):
+        agent = self.request.user
+        if agent.agent_application.count() > 0:
+            raise ValidationError("This agent has already made an application to be an agent")
+        print(agent)
+        serializer.save(agent=agent)
