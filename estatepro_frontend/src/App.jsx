@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Home from './pages/Home';
@@ -24,7 +25,7 @@ import AllProperties from './pages/AllProperties';
 
 function App() {
   return (
-    <Router>
+    // <Router>
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="grow">
@@ -52,7 +53,7 @@ function App() {
         </main>
         <Footer />
       </div>
-    </Router>
+    // </Router>
   );
   
 }
