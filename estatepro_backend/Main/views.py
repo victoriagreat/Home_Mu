@@ -8,13 +8,13 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status, viewsets, permissions
 from django.shortcuts import render
 from django.contrib.auth.backends import BaseBackend
-from .serializers import (LoginSerializer, RegisterSerializer, CreateAgentApplySerializer)
+from .serializers import (LoginSerializer, RegisterSerializer, CreateAgentApplySerializer, ContactSerializer)
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from .models import AppUser, AgentApplication
+from .models import AppUser, AgentApplication, ContactRequest
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 class UserBackend(BaseBackend):
@@ -130,6 +130,19 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 }
             )
         return Response({'error': 'Invalid credentials'})
+class ContactUsView(CreateAPIView):
+    queryset = ContactRequest.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ContactSerializer
+
+    def post(self, request):
+        serializer = ContactSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'message sent',
+                            }, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors)
+
 
 class AgentApplyView(CreateAPIView):
     queryset = AgentApplication.objects.all()

@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import AppUser, AgentApplication
+from .models import AppUser, AgentApplication, ContactRequest
 
 class LoginSerializer(serializers.ModelSerializer):
     #serializer for logging in
@@ -42,7 +42,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         subject = 'Verify your email'
         message = f'Hi {user.first_name} Click the link to verify your account: {absurl}'
         #send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
- 
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactRequest
+        fields = ['name', 'email', 'phone_number', 'message'] 
+
 class CreateAgentApplySerializer(serializers.ModelSerializer):
     id_file = serializers.FileField(required=True)
     license_file = serializers.FileField(required=True)

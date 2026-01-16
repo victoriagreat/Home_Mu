@@ -53,5 +53,9 @@ class AgentApplication(models.Model):
     id_file = models.FileField(upload_to="id_files")
     license_file = models.FileField(upload_to="licence_files")
 
-
+class ContactRequest(models.Model):
+    name = models.CharField(max_length=500)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=400)
+    message = models.TextField(blank=False)
 
