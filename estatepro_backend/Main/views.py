@@ -8,7 +8,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status, viewsets, permissions
 from django.shortcuts import render
 from django.contrib.auth.backends import BaseBackend
-from .serializers import (LoginSerializer, RegisterSerializer, CreateAgentApplySerializer, ContactSerializer)
+from .serializers import (LoginSerializer, RegisterSerializer, CreateAgentApplySerializer, ContactSerializer, ApplicationListSerializer)
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from django.shortcuts import get_object_or_404
@@ -158,3 +158,23 @@ class AgentApplyView(CreateAPIView):
             raise ValidationError("This agent has already made an application to be an agent")
         print(agent)
         serializer.save(agent=agent)
+
+class AgentApplicationList(APIView):
+    permission_classes = [permissions.IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    def get(self, request):
+        applications = AgentApplication.objects.all()
+        serializer = ApplicationListSerializer(applications, many=True)
+        return Response(serializer.data)
+
+class AgentApprovalView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    
+    def get(self, request, id):
+        agent = get_object_or_404(AppUser, id=id)
+        agent.agent_status = True
+        agent.save()
+        return Response({
+            "message": f"{agent.email} has been successfully approved to be an agent"
+        })

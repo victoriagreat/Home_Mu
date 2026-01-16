@@ -54,3 +54,24 @@ class CreateAgentApplySerializer(serializers.ModelSerializer):
     class Meta:
         model = AgentApplication
         fields = ['full_name', 'phone_number', "nin_number", "years_of_experience", 'id_file', "license_file"]
+
+class ApplicationListSerializer(serializers.ModelSerializer):
+    id_file_url = serializers.SerializerMethodField()
+    license_file_url = serializers.SerializerMethodField()
+    class Meta:
+        model = AgentApplication
+        fields = '__all__'
+
+    def get_id_file_url(self, obj):
+        return self._build_file_url(obj.id_file)
+
+    def get_license_file_url(self, obj):
+        return self._build_file_url(obj.license_file)
+
+    def _build_file_url(self, file_field):
+        request = self.context.get("request")
+        if not file_field:
+            return None
+        if request:
+            return request.build_absolute_uri(file_field.url)
+        return file_field.url
