@@ -59,3 +59,31 @@ class ContactRequest(models.Model):
     phone_number = models.CharField(max_length=400)
     message = models.TextField(blank=False)
 
+class Property(models.Model):
+    TYPECHOICES = (("sale", "Sale"), ("rent", "Rent"),("lease", "Lease"), ("shortLet","ShortLet"),("land", "Land"))
+    title = models.CharField(max_length=33)
+    agent = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name="listings")
+    description = models.TextField()
+    location = models.CharField(max_length=50)
+    price = models.IntegerField()
+    property_type = models.CharField(max_length=60, choices=TYPECHOICES)
+    size = models.IntegerField()
+    no_of_bedrooms = models.IntegerField()
+    no_of_bathrooms = models.IntegerField()
+    swimming_pool = models.BooleanField(default=False)
+    parking = models.BooleanField(default=False)
+    air_conditioning = models.BooleanField(default=False)
+    borehole = models.BooleanField(default=False)
+    gym = models.BooleanField(default=False)
+    garden = models.BooleanField(default=False)
+    wifi = models.BooleanField(default=False)
+    furnished = models.BooleanField(default=False)
+    security = models.BooleanField(default=False)
+    balcony = models.BooleanField(default=False)
+    generator = models.BooleanField(default=False)
+    serviced = models.BooleanField(default=False)
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to="property_pictures")
+    

@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import AppUser, AgentApplication, ContactRequest
+from .models import AppUser, AgentApplication, ContactRequest, Property, PropertyImage
 
 class LoginSerializer(serializers.ModelSerializer):
     #serializer for logging in
@@ -75,3 +75,15 @@ class ApplicationListSerializer(serializers.ModelSerializer):
         if request:
             return request.build_absolute_uri(file_field.url)
         return file_field.url
+
+class CreatePropertyListingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Property
+        fields = ['title', 'description','location','price','property_type', 'size', 'no_of_bedrooms','no_of_bathrooms',
+                  'swimming_pool', 'parking', 'air_conditioning', 'borehole', 'gym', 'garden', 'wifi', 'furnished', 'balcony', 'generator', 'serviced']
+        
+class CreatePropertyImageSerializer(serializers.ModelSerializer):
+    image = serializers.FileField(required=True)
+    class Meta:
+        model = PropertyImage
+        fields = ['image']

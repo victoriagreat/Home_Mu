@@ -8,7 +8,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status, viewsets, permissions
 from django.shortcuts import render
 from django.contrib.auth.backends import BaseBackend
-from .serializers import (LoginSerializer, RegisterSerializer, CreateAgentApplySerializer, ContactSerializer, ApplicationListSerializer)
+from .serializers import (LoginSerializer, RegisterSerializer, CreateAgentApplySerializer, ContactSerializer, ApplicationListSerializer,
+                          CreatePropertyListingSerializer, CreatePropertyImageSerializer)
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from django.shortcuts import get_object_or_404
@@ -156,7 +157,6 @@ class AgentApplyView(CreateAPIView):
         agent = self.request.user
         if agent.agent_application.count() > 0:
             raise ValidationError("This agent has already made an application to be an agent")
-        print(agent)
         serializer.save(agent=agent)
 
 class AgentApplicationList(APIView):
@@ -178,3 +178,45 @@ class AgentApprovalView(APIView):
         return Response({
             "message": f"{agent.email} has been successfully approved to be an agent"
         })
+
+class CreatePropertyListingView(CreateAPIView):
+    queryset = AgentApplication.objects.all()
+    serializer_class = CreatePropertyListingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def perform_create(self, serializer):
+        agent = self.request.user
+        if not agent.agent_status:
+            raise ValidationError("Apply to be an agent first before trying to list a property")
+        print(agent)
+        serializer.save(agent=agent)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)  # side effects here
+        instance = serializer.instance  # get saved object
+
+        data = {
+        "message": "Property Listing created!",
+        "property_id": instance.id,
+    }
+        return Response(data, status=status.HTTP_201_CREATED)
+
+class CreatePropertyImageView(CreateAPIView):
+    queryset = AgentApplication.objects.all()
+    serializer_class = CreatePropertyImageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def perform_create(self, serializer):
+        agent = self.request.user
+        if not agent.agent_status:
+            raise ValidationError("Apply to be an agent first before trying to list a property")
+        property_id = self.kwargs['property_id']
+        serializer.save(property_id = property_id)
+    
+
+
