@@ -3,7 +3,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import (
     LoginView, LogoutView, RegisterView, VerifyEmail, CustomTokenObtainPairView, AgentApplyView,
-    ContactUsView, AgentApplicationList, AgentApprovalView, CreatePropertyListingView, CreatePropertyImageView)
+    ContactUsView, AgentApplicationList, AgentApprovalView, CreatePropertyListingView, CreatePropertyImageView,
+    ListAgentPropertiesView)
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.authtoken import views
 urlpatterns = [
@@ -16,8 +17,9 @@ urlpatterns = [
     path('api/agent_apply', AgentApplyView.as_view(), name='agent_apply'),
     path('api/list_applications', AgentApplicationList.as_view(), name='list_application'),
     path('api/approve_application/<int:id>/', AgentApprovalView.as_view(), name='approve-agent'),
-    path('api/properties/create', CreatePropertyListingView.as_view(), name="add_property"),
-    path('api/property/<int:property_id>/add_image', CreatePropertyImageView.as_view(), name="add_image")
+    path('api/agent/properties/add', CreatePropertyListingView.as_view(), name="add_property"),
+    path('api/property/<int:property_id>/add_image', CreatePropertyImageView.as_view(), name="add_image"),
+    path('api/agent/properties', ListAgentPropertiesView.as_view(), name="list_agent_properties")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

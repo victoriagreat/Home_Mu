@@ -9,13 +9,13 @@ from rest_framework import status, viewsets, permissions
 from django.shortcuts import render
 from django.contrib.auth.backends import BaseBackend
 from .serializers import (LoginSerializer, RegisterSerializer, CreateAgentApplySerializer, ContactSerializer, ApplicationListSerializer,
-                          CreatePropertyListingSerializer, CreatePropertyImageSerializer)
+                          CreatePropertyListingSerializer, CreatePropertyImageSerializer, ListAgentPropertySerializer )
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from .models import AppUser, AgentApplication, ContactRequest
+from .models import AppUser, AgentApplication, ContactRequest, Property, PropertyImage
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 class UserBackend(BaseBackend):
@@ -180,7 +180,6 @@ class AgentApprovalView(APIView):
         })
 
 class CreatePropertyListingView(CreateAPIView):
-    queryset = AgentApplication.objects.all()
     serializer_class = CreatePropertyListingSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
@@ -205,7 +204,6 @@ class CreatePropertyListingView(CreateAPIView):
         return Response(data, status=status.HTTP_201_CREATED)
 
 class CreatePropertyImageView(CreateAPIView):
-    queryset = AgentApplication.objects.all()
     serializer_class = CreatePropertyImageSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
@@ -217,6 +215,19 @@ class CreatePropertyImageView(CreateAPIView):
             raise ValidationError("Apply to be an agent first before trying to list a property")
         property_id = self.kwargs['property_id']
         serializer.save(property_id = property_id)
+    
+class ListAgentPropertiesView(APIView):
+    serializer = ListAgentPropertySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def get(self, request):
+        if not self.request.user.agent_status:
+            raise ValidationError("Apply to be an agent first before trying to list a property")
+        properties = request.user.properties.all()
+        serializer = ListAgentPropertySerializer(properties, many=True)
+        return Response(serializer.data)
+
+
     
 
 
